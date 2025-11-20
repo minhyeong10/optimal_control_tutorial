@@ -1,6 +1,6 @@
 # 🧠 Optimal Control Tutorial
 ## 🎥 YouTube Lecture Playlist
-[(https://youtu.be/bp_qtED03vY?si=esJ1FsKYW3IAbkP6)]
+[[(https://youtu.be/bp_qtED03vY?si=esJ1FsKYW3IAbkP6)](https://youtube.com/playlist?list=PLWlc-tIe6xhmG1-vf-u6fTtdaG7w6OOrU&si=QntckAAnvDi0kSrn)]
 
 Python implementations of fundamental **Optimal Control** algorithms:
 
