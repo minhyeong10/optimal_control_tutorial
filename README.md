@@ -50,13 +50,13 @@ It computes a state-feedback controller that minimizes a quadratic cost on state
 
 Key ideas:
 
-Assumes linear dynamics
+- Assumes linear dynamics
 
-Penalizes deviation from desired state
+- Penalizes deviation from desired state
 
-Produces an optimal control law of the form u = -Kx
+- Produces an optimal control law of the form u = -Kx
 
-Very fast and widely used in robotics & control
+- Very fast and widely used in robotics & control
 
 ### ✔️ LQR Manipulator Example
 <img src="viz/LQR_manipulator.gif" width="400">
@@ -65,17 +65,21 @@ Very fast and widely used in robotics & control
 
 ## 2️⃣ **iLQR / DDP — Iterative LQR**
 
-iLQR extends LQR to **nonlinear dynamics**:
+iLQR generalizes LQR to nonlinear systems.
 
-\[
-x_{k+1} = f(x_k, u_k)
-\]
+Main procedure:
 
-Key steps:
-- Linearize dynamics
-- Quadratic expansion of cost
-- Solve LQR backward pass
-- Apply line search update
+- Linearize nonlinear dynamics locally
+
+- Quadratically approximate the cost
+
+- Perform an LQR backward pass to compute gains
+
+- Apply line-search updates to refine the solution
+
+- Repeat until convergence
+
+This makes iLQR suitable for pendulums, manipulators, and complex nonlinear robots.
 
 ### ✔️ iLQR Inverted Pendulum Demo
 <img src="viz/iLQR_inverted_pendulum.gif" width="400">
@@ -84,18 +88,21 @@ Key steps:
 
 ## 3️⃣ **MPC — Model Predictive Control**
 
-At each timestep, MPC solves a **finite-horizon optimal control problem**:
+MPC solves a finite-horizon optimal control problem at every timestep.
 
-\[
-\min_{u_{0:N-1}} \sum_{k=0}^{N-1}\|x_k - x_{ref}\|^2 + \|u_k\|^2
-\]
+Characteristics:
 
-Subject to:
-- Linear dynamics \(x_{k+1} = A_k x_k + B_k u_k\)
-- Control constraints
-- State constraints
+- Predicts future states over a horizon
 
-This repo converts MPC → **QP** and solves it via `qpsolvers`.
+- Optimizes control inputs while respecting constraints
+
+- Applies only the first control input
+
+- Repeats the process at the next timestep
+
+- Great for robots that must follow trajectories or stay within limits
+
+This repository converts MPC into a Quadratic Program (QP) and solves it using QP solvers.
 
 ### ✔️ MPC Bipedal Example (one-step)
 <img src="viz/bipedal_mpc_onestep.gif" width="400">
