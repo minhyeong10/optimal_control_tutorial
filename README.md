@@ -42,7 +42,8 @@ Optimal_Control/
 
 ---
 
-🎯 Algorithms Overview (No Equations)
+🎯 Algorithms Overview
+
 1️⃣ LQR — Linear Quadratic Regulator
 
 LQR is an optimal control method for linear systems.
@@ -60,6 +61,7 @@ Very fast and widely used in robotics & control
 
 ✔️ LQR Manipulator Example
 <img src="viz/LQR_manipulator.gif" width="400">
+
 2️⃣ iLQR / DDP — Iterative LQR
 
 iLQR generalizes LQR to nonlinear systems.
@@ -80,6 +82,7 @@ This makes iLQR suitable for pendulums, manipulators, and complex nonlinear robo
 
 ✔️ iLQR Inverted Pendulum Demo
 <img src="viz/iLQR_inverted_pendulum.gif" width="400">
+
 3️⃣ MPC — Model Predictive Control
 
 MPC solves a finite-horizon optimal control problem at every timestep.
