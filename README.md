@@ -11,6 +11,7 @@ This repository is organized for **learning / teaching optimal control**, with c
 ---
 
 ## 📂 Repository Structure
+```text
 Optimal_Control/
 │
 ├── LQR/
