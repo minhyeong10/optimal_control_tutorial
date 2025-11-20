@@ -45,25 +45,18 @@ Optimal_Control/
 
 ## 1️⃣ **LQR — Linear Quadratic Regulator**
 
-LQR solves:
+LQR is an optimal control method for linear systems.
+It computes a state-feedback controller that minimizes a quadratic cost on states and control inputs.
 
-\[
-\min_u \int (x^\top Q x + u^\top R u)\, dt
-\]
+Key ideas:
 
-for **linear dynamics**:
+Assumes linear dynamics
 
-\[
-\dot{x} = A x + B u
-\]
+Penalizes deviation from desired state
 
-The optimal control is:
+Produces an optimal control law of the form u = -Kx
 
-\[
-u = -Kx, \qquad K = R^{-1} B^\top P
-\]
-
-where \(P\) solves the Continuous-time Algebraic Riccati Equation (CARE).
+Very fast and widely used in robotics & control
 
 ### ✔️ LQR Manipulator Example
 <img src="viz/LQR_manipulator.gif" width="400">
