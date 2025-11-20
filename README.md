@@ -42,68 +42,65 @@ Optimal_Control/
 
 ---
 
-# 🎯 Algorithms Overview
+🎯 Algorithms Overview (No Equations)
+1️⃣ LQR — Linear Quadratic Regulator
 
-## 1️⃣ **LQR — Linear Quadratic Regulator**
+LQR is an optimal control method for linear systems.
+It computes a state-feedback controller that minimizes a quadratic cost on states and control inputs.
 
-LQR solves:
+Key ideas:
 
-<p align="left"> <img src="https://render.githubusercontent.com/render/math?math=\min_u \int (x^T Q x + u^T R u)\, dt"> </p>
+Assumes linear dynamics
 
-for linear dynamics:
+Penalizes deviation from desired state
 
-<p align="left"> <img src="https://render.githubusercontent.com/render/math?math=\dot{x} = A x + B u"> </p>
+Produces an optimal control law of the form u = -Kx
 
-The optimal control is:
+Very fast and widely used in robotics & control
 
-<p align="left"> <img src="https://render.githubusercontent.com/render/math?math=u = -Kx,\quad K = R^{-1} B^T P"> </p>
-
-where 
-P
-P solves the Continuous-time Algebraic Riccati Equation (CARE).
-### ✔️ LQR Manipulator Example
+✔️ LQR Manipulator Example
 <img src="viz/LQR_manipulator.gif" width="400">
+2️⃣ iLQR / DDP — Iterative LQR
 
----
+iLQR generalizes LQR to nonlinear systems.
 
-## 2️⃣ **iLQR / DDP — Iterative LQR**
+Main procedure:
 
-iLQR extends LQR to **nonlinear dynamics**:
+Linearize nonlinear dynamics locally
 
-\[
-x_{k+1} = f(x_k, u_k)
-\]
+Quadratically approximate the cost
 
-Key steps:
-- Linearize dynamics
-- Quadratic expansion of cost
-- Solve LQR backward pass
-- Apply line search update
+Perform an LQR backward pass to compute gains
 
-### ✔️ iLQR Inverted Pendulum Demo
+Apply line-search updates to refine the solution
+
+Repeat until convergence
+
+This makes iLQR suitable for pendulums, manipulators, and complex nonlinear robots.
+
+✔️ iLQR Inverted Pendulum Demo
 <img src="viz/iLQR_inverted_pendulum.gif" width="400">
+3️⃣ MPC — Model Predictive Control
 
----
+MPC solves a finite-horizon optimal control problem at every timestep.
 
-## 3️⃣ **MPC — Model Predictive Control**
+Characteristics:
 
-At each timestep, MPC solves a **finite-horizon optimal control problem**:
+Predicts future states over a horizon
 
-\[
-\min_{u_{0:N-1}} \sum_{k=0}^{N-1}\|x_k - x_{ref}\|^2 + \|u_k\|^2
-\]
+Optimizes control inputs while respecting constraints
 
-Subject to:
-- Linear dynamics \(x_{k+1} = A_k x_k + B_k u_k\)
-- Control constraints
-- State constraints
+Applies only the first control input
 
-This repo converts MPC → **QP** and solves it via `qpsolvers`.
+Repeats the process at the next timestep
 
-### ✔️ MPC Bipedal Example (one-step)
+Great for robots that must follow trajectories or stay within limits
+
+This repository converts MPC into a Quadratic Program (QP) and solves it using QP solvers.
+
+✔️ MPC Bipedal Example (one-step)
 <img src="viz/bipedal_mpc_onestep.gif" width="400">
-
-### ✔️ MPC Bipedal Example (multi-step)
+✔️ MPC Bipedal Example (multi-step)
 <img src="viz/bipedal_mpc_multistep.gif" width="400">
 
 ---
