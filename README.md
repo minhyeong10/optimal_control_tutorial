@@ -48,24 +48,19 @@ Optimal_Control/
 
 LQR solves:
 
-\[
-\min_u \int (x^\top Q x + u^\top R u)\, dt
-\]
+<p align="left"> <img src="https://render.githubusercontent.com/render/math?math=\min_u \int (x^T Q x + u^T R u)\, dt"> </p>
 
-for **linear dynamics**:
+for linear dynamics:
 
-\[
-\dot{x} = A x + B u
-\]
+<p align="left"> <img src="https://render.githubusercontent.com/render/math?math=\dot{x} = A x + B u"> </p>
 
 The optimal control is:
 
-\[
-u = -Kx, \qquad K = R^{-1} B^\top P
-\]
+<p align="left"> <img src="https://render.githubusercontent.com/render/math?math=u = -Kx,\quad K = R^{-1} B^T P"> </p>
 
-where \(P\) solves the Continuous-time Algebraic Riccati Equation (CARE).
-
+where 
+P
+P solves the Continuous-time Algebraic Riccati Equation (CARE).
 ### ✔️ LQR Manipulator Example
 <img src="viz/LQR_manipulator.gif" width="400">
 
