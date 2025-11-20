@@ -37,7 +37,7 @@ Optimal_Control/
 ├── iLQR_inverted_pendulum.gif
 ├── bipedal_mpc_onestep.gif
 └── bipedal_mpc_multistep.gif
-
+'''
 
 ---
 
