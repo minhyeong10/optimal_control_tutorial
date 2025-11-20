@@ -38,72 +38,76 @@ Optimal_Control/
 ├── bipedal_mpc_onestep.gif
 └── bipedal_mpc_multistep.gif
 
-```
 
 ---
 
-🎯 Algorithms Overview
+# 🎯 Algorithms Overview
 
-1️⃣ LQR — Linear Quadratic Regulator
+## 1️⃣ **LQR — Linear Quadratic Regulator**
 
-LQR is an optimal control method for linear systems.
-It computes a state-feedback controller that minimizes a quadratic cost on states and control inputs.
+LQR solves:
 
-Key ideas:
+\[
+\min_u \int (x^\top Q x + u^\top R u)\, dt
+\]
 
-Assumes linear dynamics
+for **linear dynamics**:
 
-Penalizes deviation from desired state
+\[
+\dot{x} = A x + B u
+\]
 
-Produces an optimal control law of the form u = -Kx
+The optimal control is:
 
-Very fast and widely used in robotics & control
+\[
+u = -Kx, \qquad K = R^{-1} B^\top P
+\]
 
-✔️ LQR Manipulator Example
+where \(P\) solves the Continuous-time Algebraic Riccati Equation (CARE).
+
+### ✔️ LQR Manipulator Example
 <img src="viz/LQR_manipulator.gif" width="400">
 
-2️⃣ iLQR / DDP — Iterative LQR
+---
 
-iLQR generalizes LQR to nonlinear systems.
+## 2️⃣ **iLQR / DDP — Iterative LQR**
 
-Main procedure:
+iLQR extends LQR to **nonlinear dynamics**:
 
-Linearize nonlinear dynamics locally
+\[
+x_{k+1} = f(x_k, u_k)
+\]
 
-Quadratically approximate the cost
+Key steps:
+- Linearize dynamics
+- Quadratic expansion of cost
+- Solve LQR backward pass
+- Apply line search update
 
-Perform an LQR backward pass to compute gains
-
-Apply line-search updates to refine the solution
-
-Repeat until convergence
-
-This makes iLQR suitable for pendulums, manipulators, and complex nonlinear robots.
-
-✔️ iLQR Inverted Pendulum Demo
+### ✔️ iLQR Inverted Pendulum Demo
 <img src="viz/iLQR_inverted_pendulum.gif" width="400">
 
-3️⃣ MPC — Model Predictive Control
+---
 
-MPC solves a finite-horizon optimal control problem at every timestep.
+## 3️⃣ **MPC — Model Predictive Control**
 
-Characteristics:
+At each timestep, MPC solves a **finite-horizon optimal control problem**:
 
-Predicts future states over a horizon
+\[
+\min_{u_{0:N-1}} \sum_{k=0}^{N-1}\|x_k - x_{ref}\|^2 + \|u_k\|^2
+\]
 
-Optimizes control inputs while respecting constraints
+Subject to:
+- Linear dynamics \(x_{k+1} = A_k x_k + B_k u_k\)
+- Control constraints
+- State constraints
 
-Applies only the first control input
+This repo converts MPC → **QP** and solves it via `qpsolvers`.
 
-Repeats the process at the next timestep
-
-Great for robots that must follow trajectories or stay within limits
-
-This repository converts MPC into a Quadratic Program (QP) and solves it using QP solvers.
-
-✔️ MPC Bipedal Example (one-step)
+### ✔️ MPC Bipedal Example (one-step)
 <img src="viz/bipedal_mpc_onestep.gif" width="400">
-✔️ MPC Bipedal Example (multi-step)
+
+### ✔️ MPC Bipedal Example (multi-step)
 <img src="viz/bipedal_mpc_multistep.gif" width="400">
 
 ---
@@ -114,4 +118,4 @@ Install dependencies:
 
 ```bash
 pip install numpy scipy matplotlib qpsolvers
-    
+
